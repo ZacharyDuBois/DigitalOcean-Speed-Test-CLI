@@ -9,7 +9,7 @@ version="v0.5.1 10MB"
 
 downloadFile="10mb.test"
 dataCenters=(speedtest-{ams{1..2},nyc{1..2},lon1,sfo1,sgp1}.digitalocean.com)
-userAgent="DigitalOcean Speed Test CLI $version - https://bitbucket.org/Zachary_DuBois/digitalocean-speedtest-cli"
+userAgent="DigitalOcean Speed Test CLI $version - https://bitbucket.org/Zachary_DuBois/digitalocean-speed-test-cli"
 
 
 ##
@@ -53,7 +53,7 @@ fi
 echo
 echo "Welcome to the DigitalOcean Speed Test CLI $version."
 echo "(c) Copyright Zachary DuBois, 2014. All rights reserved."
-echo "Source is available here: https://bitbucket.org/Zachary_DuBois/digitalocean-speedtest-cli"
+echo "Source is available here: https://bitbucket.org/Zachary_DuBois/digitalocean-speed-test-cli"
 echo
 
 
