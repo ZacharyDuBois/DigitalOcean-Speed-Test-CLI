@@ -1,5 +1,9 @@
 # Change Log
 
+### v0.5.2
+
+- Fix typo causing hostnames for the download test not to display correctly.
+
 ### v0.5.1
 
 - Change to Shell.
