@@ -1,5 +1,9 @@
 # Change Log
 
+### v0.5.3
+
+- Adds NYC3 to the data center list.
+
 ### v0.5.2
 
 - Fix typo causing hostnames for the download test not to display correctly.
