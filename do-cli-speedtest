@@ -1,7 +1,7 @@
 #!/bin/bash
 # DigitalOcean Speed Test CLI
 # (c) Copyright Zachary DuBois, 2014. All rights reserved.
-version="v0.5.3 100MB"
+version="v0.5.4 100MB"
 
 ##
 # Variables
@@ -30,7 +30,7 @@ finish="[$(tput setaf 4)DONE$(tput sgr0)]"
 ##
 
 # Check for root
-if [ "$(id -u)" == "0" ]
+if [[ "$(id -u)" == "0" ]]
 then
   echo "$fail Do not run this script as root."
   exit 1
@@ -39,7 +39,7 @@ fi
 # Check for wget
 which wget > /dev/null
 checkForWget=$?
-if [ "$checkForWget" != "0" ]
+if [[ "$checkForWget" != "0" ]]
 then 
   echo "$fail You need wget to run this script."
   exit 1
