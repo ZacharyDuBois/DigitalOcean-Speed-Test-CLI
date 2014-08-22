@@ -1,5 +1,6 @@
 #!/bin/bash
 # DigitalOcean Speed Test CLI
+# https://bitbucket.org/Zachary_DuBois/digitalocean-speed-test-cli
 # (c) Copyright Zachary DuBois, 2014. All rights reserved.
 version="v0.5.4 100MB"
 

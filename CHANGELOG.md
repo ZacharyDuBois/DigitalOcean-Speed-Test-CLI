@@ -1,10 +1,10 @@
 # Change Log
 
-### v0.5.4 *Master*
+### v0.5.4
 
 - Add double square brackets to if statements (Thanks to rascul from #digitalocean).
 
-### v0.5.3 *Current*
+### v0.5.3
 
 - Adds NYC3 to the data center list.
 

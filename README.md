@@ -1,6 +1,6 @@
 # DigitalOcean Speed Test CLI
 
-*v0.5.3*
+*v0.5.4*
 
 ## Features
 
