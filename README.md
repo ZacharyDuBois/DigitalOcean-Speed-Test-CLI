@@ -1,13 +1,13 @@
 # DigitalOcean Speed Test CLI
 
-*v0.5.4*
+*v0.5.5*
 
 ## Features
 
 - Download tests.
 - Latency tests.
 - Simple to use.
-- *More coming*
+- Currently tests: AMS1-3, NYC1-3, LON1, SFO1, and SGP1.
 
 ## Requirements
 

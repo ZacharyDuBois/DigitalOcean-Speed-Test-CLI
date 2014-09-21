@@ -1,5 +1,9 @@
 # Change Log
 
+### v0.5.5
+
+- Adds AMS3 to the data center list.
+
 ### v0.5.4
 
 - Add double square brackets to if statements (Thanks to rascul from #digitalocean).
