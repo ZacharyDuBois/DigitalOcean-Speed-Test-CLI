@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.5.6
+
+- Re-Licensed the code correctly this time. Now it is correctly under MIT.
+
 ### v0.5.5
 
 - Adds AMS3 to the data center list.
@@ -61,6 +65,3 @@
 ### v0.1
 
 - Initial release.
-
-
-Copyright (c) Zachary DuBois, 2014. All Rights Reserved.

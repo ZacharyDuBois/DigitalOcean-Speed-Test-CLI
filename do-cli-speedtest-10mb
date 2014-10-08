@@ -1,8 +1,7 @@
 #!/bin/bash
 # DigitalOcean Speed Test CLI
-# https://bitbucket.org/Zachary_DuBois/digitalocean-speed-test-cli
-# (c) Copyright Zachary DuBois, 2014. All rights reserved.
-version="v0.5.5 10MB"
+# https://github.com/ZacharyDuBois/DigitalOcean-Speed-Test-CLI
+version="v0.5.6 10MB"
 
 ##
 # Variables
@@ -10,7 +9,7 @@ version="v0.5.5 10MB"
 
 downloadFile="10mb.test"
 dataCenters=(speedtest-{ams{1..3},nyc{1..3},lon1,sfo1,sgp1}.digitalocean.com)
-userAgent="DigitalOcean Speed Test CLI $version - https://bitbucket.org/Zachary_DuBois/digitalocean-speed-test-cli"
+userAgent="DigitalOcean Speed Test CLI $version - https://github.com/ZacharyDuBois/DigitalOcean-Speed-Test-CLI"
 
 
 ##
@@ -53,8 +52,8 @@ fi
 
 echo
 echo "Welcome to the DigitalOcean Speed Test CLI $version."
-echo "(c) Copyright Zachary DuBois, 2014. All rights reserved."
-echo "Source is available here: https://bitbucket.org/Zachary_DuBois/digitalocean-speed-test-cli"
+echo "A thing made by Zachary DuBois."
+echo "Source is available here: https://github.com/ZacharyDuBois/DigitalOcean-Speed-Test-CLI"
 echo
 
 
