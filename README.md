@@ -1,6 +1,6 @@
 # DigitalOcean Speed Test CLI
 
-*v0.5.6*
+*v0.5.7*
 
 ## Features
 
@@ -14,7 +14,7 @@
 - Bash
 - Wget
 - Ping
-- Curl (Optional)
+- Curl (Optional if you want to quickly run it off the CDN)
 
 ## Run It Now
 
@@ -24,7 +24,7 @@ To run the speed test, do:
 
 or for a 10MB test, run:
 
-    curl -s https://dr8uh8msj92y9.cloudfront.net/dostcli10mb | bash
+    curl -s https://dr8uh8msj92y9.cloudfront.net/dostcli | bash -s - 10mb
 
 ## Notices
 
