@@ -3,6 +3,7 @@
 ## v0.5.7
 
 - Passes the `testType` as an argument when running the command (Thanks to kamal_ from #digitalocean).
+- Removes the wait time in ping to speed up the test a bit.
 
 ### v0.5.6
 

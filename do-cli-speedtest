@@ -108,7 +108,7 @@ pingTest() {
   name=$1
   hostname=$2
   echo "$running Running $name latency test on $hostname..."
-  pingRaw=$(ping -qc 10 -i 0.5 $hostname)
+  pingRaw=$(ping -qc 10 $hostname)
   avgPingRaw="$(echo "$pingRaw" | awk -F'/' '/^(rtt|round-trip)/ { print $5 }')"
   avgPing="$(tput setaf 2)"$avgPingRaw"ms$(tput sgr0)"
   echo "$ok $name Average Latency: $avgPing."
