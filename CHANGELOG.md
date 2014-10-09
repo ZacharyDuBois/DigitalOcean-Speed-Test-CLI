@@ -1,6 +1,10 @@
 # Change Log
 
-## v0.5.6
+## v0.5.7
+
+- Passes the `testType` as an argument when running the command (Thanks to kamal_ from #digitalocean).
+
+### v0.5.6
 
 - Re-Licensed the code correctly this time. Now it is correctly under MIT.
 
@@ -42,11 +46,11 @@
 
 ### v0.4.1
 
-- Quick change (Thanks to kamel_ from #digitalocean).
+- Quick change (Thanks to kamal_ from #digitalocean).
 
 ### v0.4
 
-- Make datacenters list into an array (Thanks to kamel_ from #digitalocean).
+- Make datacenters list into an array (Thanks to kamal_ from #digitalocean).
 - Clean up code/comments.
 
 ### v0.3
