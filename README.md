@@ -20,11 +20,11 @@
 
 To run the speed test, do:
 
-    curl -s https://dr8uh8msj92y9.cloudfront.net/dostcli | bash
+    curl -s https://i.destroy.tokyo/dostcli | bash
 
 or for a 10MB test, run:
 
-    curl -s https://dr8uh8msj92y9.cloudfront.net/dostcli | bash -s - 10mb
+    curl -s https://i.destroy.tokyo/dostcli | bash -s - 10mb
 
 ## Notices
 
