@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.5.8
+
+- Adds the FRA1 datacenter.
+
 ## v0.5.7
 
 - Passes the `testType` as an argument when running the command (Thanks to kamal_ from #digitalocean).
@@ -62,7 +66,7 @@
 ### v0.2
 
 - Clean up code to use functions instead of a long list of the same commands (Thanks to Aciid from #digitalocean).
-- Clear before starting. 
+- Clear before starting.
 - Version as variable.
 - Adds notice that no files will be saved.
 - Breaks summery.

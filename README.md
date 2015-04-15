@@ -1,6 +1,6 @@
 # DigitalOcean Speed Test CLI
 
-*v0.5.7*
+*v0.5.8*
 
 ## Features
 
@@ -29,4 +29,3 @@ or for a 10MB test, run:
 ## Notices
 
 - This currently does not test upload speed.
-
