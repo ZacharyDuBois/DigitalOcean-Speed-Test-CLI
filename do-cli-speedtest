@@ -16,14 +16,13 @@ testType=$1
 # Message Types
 ##
 
-fail="[$(tput setaf 1)FAIL$(tput sgr0)]"
-ok="[$(tput setaf 2)OK$(tput sgr0)]"
-running="[$(tput setaf 3)*$(tput sgr0)]"
+fail="[$(tput setaf 1) FAIL $(tput sgr0)]"
+ok="[$(tput setaf 2)  OK  $(tput sgr0)]"
+running="[$(tput setaf 3)  **  $(tput sgr0)]"
 notice="[$(tput setaf 3)NOTICE$(tput sgr0)]"
-warning="[$(tput setaf 3)WARNING$(tput sgr0)]"
-info="[$(tput setaf 6)INFO$(tput sgr0)]"
-finish="[$(tput setaf 4)DONE$(tput sgr0)]"
-
+warn="[$(tput setaf 3) WARN $(tput sgr0)]"
+info="[$(tput setaf 6) INFO $(tput sgr0)]"
+finish="[$(tput setaf 4) DONE $(tput sgr0)]"
 
 ##
 # Startup Checks
@@ -51,9 +50,9 @@ fi
 ##
 
 echo
-echo "Welcome to the DigitalOcean Speed Test CLI $version."
-echo "A thing made by Zachary DuBois."
-echo "Source is available here: https://github.com/ZacharyDuBois/DigitalOcean-Speed-Test-CLI"
+echo "$info Welcome to the DigitalOcean Speed Test CLI $version."
+echo "$info A thing made by Zachary DuBois."
+echo "$info Source is available here: https://github.com/ZacharyDuBois/DigitalOcean-Speed-Test-CLI"
 echo
 
 
@@ -116,7 +115,7 @@ pingTest() {
   if ! [[ "$pkLossRaw" =~ ^(0\.0\%|0\%) ]]
   then
     pkLoss=$(tput setaf 2)$pkLossRaw$(tput sgr0)
-    echo "$warning $name Packet Loss: $pkLoss."
+    echo "$warn $name Packet Loss: $pkLoss."
   fi
 }
 

@@ -3,6 +3,7 @@
 ## v0.5.8
 
 - Adds the FRA1 datacenter.
+- Use new message types.
 
 ## v0.5.7
 
