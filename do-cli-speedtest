@@ -69,10 +69,12 @@ echo "$running Starting download speedtest..."
 if [[ $testType == "100mb" ]] || [[ $testType == "" ]]
 then
   downloadFile="100mb.test"
+  testType="100mb"
   echo "$info You are running the 100MB test."
 elif [[ $testType == "10mb" ]]
 then
   downloadFile="10mb.test"
+  testType="10mb"
   echo "$info You are running the 10MB test."
 else
   echo "$fail The testType was invalid."
