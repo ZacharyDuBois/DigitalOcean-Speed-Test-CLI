@@ -8,6 +8,7 @@ version="v0.5.8"
 ##
 
 dataCenters=(speedtest-{ams{1..3},nyc{1..3},lon1,sfo1,sgp1,fra1}.digitalocean.com)
+cdnTest="d2qm7ckles1o3d.cloudfront.net"
 userAgent="DigitalOcean Speed Test CLI $version - https://github.com/ZacharyDuBois/DigitalOcean-Speed-Test-CLI"
 testType=$1
 
@@ -80,17 +81,29 @@ fi
 downloadTest() {
   name=$1
   hostname=$2
+  ssl=$3
 
-  echo "$running Running $name download speed test from http://$hostname/$downloadFile..."
-  speedRaw=$( wget -O /dev/null --user-agent "'$userAgent'" http://$hostname/$downloadFile 2>&1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
+  if [[ $ssl == true ]]
+  then
+    $scheme="https://"
+  else
+    $scheme="http://"
+  fi
+
+  echo "$running Running $name download speed test from $scheme$hostname/$downloadFile..."
+  speedRaw=$( wget -O /dev/null --user-agent "'$userAgent'" $scheme$hostname/$downloadFile 2>&1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
   speed="$(tput setaf 2)$speedRaw$(tput sgr0)"
   echo "$ok $name Speed: $speed."
 }
 
 for dataCenter in "${dataCenters[@]}"
 do
-    downloadTest "$(echo "$dataCenter" | awk -F'.' '{ print $1 }' | awk -F'-' '{ print $2 }' | tr '[:lower:]' '[:upper:]')" "$dataCenter"
+    downloadTest "$(echo "$dataCenter" | awk -F'.' '{ print $1 }' | awk -F'-' '{ print $2 }' | tr '[:lower:]' '[:upper:]')" "$dataCenter" false
 done
+
+echo "$info Starting CDN test. Test runs twice to ensure file is in the edge location."
+downloadTest "$cdnTest" "CDN Test 1x" true
+downloadTest "$cdnTest" "CDN Test 2x" true
 
 echo "$ok Download Speedtest."
 
