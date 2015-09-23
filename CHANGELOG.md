@@ -1,5 +1,12 @@
 # Change Log
 
+## v0.6.0
+
+- Adds CDN test on AWS Cloudfront.
+- Adds SSL argument.
+- Speeds up ping test a little.
+- Adds tracking for just test count stats.
+
 ## v0.5.8
 
 - Adds the FRA1 datacenter.

@@ -1,6 +1,6 @@
 # DigitalOcean Speed Test CLI
 
-*v0.5.8*
+*v0.6.0*
 
 ## Features
 
@@ -19,13 +19,23 @@
 ## Run It Now
 
 To run the speed test, do:
+```shell
+curl -s https://i.destroy.tokyo/dostcli | bash
+```
 
-    curl -s https://i.destroy.tokyo/dostcli | bash
-
+or if you want to opt out of tracking, run
+```shell
+curl -s https://i.destroy.tokyo/dostcli | bash -s 100mb true
+```
 or for a 10MB test, run:
-
-    curl -s https://i.destroy.tokyo/dostcli | bash -s - 10mb
+```shell
+curl -s https://i.destroy.tokyo/dostcli | bash -s - 10mb
+```
+and again, to opt out of tracking, run
+```shell
+curl -s https://i.destroy.tokyo/dostcli | bash -s - 10mb true
+```
 
 ## Notices
 
-- This currently does not test upload speed.
+- This currently does not test upload speed (Soon!).
