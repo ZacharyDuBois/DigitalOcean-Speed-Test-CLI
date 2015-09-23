@@ -135,7 +135,7 @@ pingTest() {
   name=$1
   hostname=$2
   echo "$running Running $name latency test on $hostname..."
-  pingRaw=$(ping -qc 10 $hostname)
+  pingRaw=$(ping -qc 10 -i .5 $hostname)
   avgPingRaw="$(echo "$pingRaw" | awk -F'/' '/^(rtt|round-trip)/ { print $5 }')"
   avgPing="$(tput setaf 2)"$avgPingRaw"ms$(tput sgr0)"
   echo "$ok $name Average Latency: $avgPing."
@@ -160,6 +160,7 @@ then
   curl -s "https://we.destroy.tokyo/DOSTCLI-$testType" > /dev/null
   echo "$ok Tracking compleate."
 else
+  echo "$info Not calling tracking URL."
 fi
 
 ##
