@@ -83,6 +83,13 @@ fi
 
 if [[ $disallowTracking == false ]] || [[ $disallowTracking == "" ]]
 then
+  which curl > /dev/null
+  checkForCurl=$?
+  if [[ "$checkForCurl" != "0" ]]
+    then
+    echo "$fail You need curl to enable tracking."
+    exit 1
+  fi
   echo "$notice You have selected not to opt out of tracking. Tracking only counts the number of tests and the test type (and the IP will be logged in the access log, etc)."
   echo "$notice The tracking URL is not called until the very end of the test. If you would like to opt out now, you can simply cancel this script and re-run it with the disallowTracking variable set. See README.md on Github for more information."
 elif [[ $disallowTracking == true ]]
