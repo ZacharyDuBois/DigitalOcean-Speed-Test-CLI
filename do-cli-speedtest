@@ -161,7 +161,7 @@ done
 
 echo "$ok Latency test."
 
-if [[ $disallowTracking == false ]]
+if [[ $disallowTracking == false ]] || [[ $disallowTracking == "" ]]
 then
   echo "$running Calling tracking URL."
   curl -s "https://we.destroy.tokyo/DOSTCLI-$testType" > /dev/null
