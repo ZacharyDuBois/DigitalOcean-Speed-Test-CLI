@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.6.2
+
+- Fix if at the end to determine if tracking is allowed or not.
+
 ## v0.6.1
 
 - Shortly after v0.6.0, TOR1 was released. This adds support for TOR1.
