@@ -1,7 +1,6 @@
 #!/bin/bash
 # DigitalOcean Speed Test CLI
 # https://github.com/ZacharyDuBois/DigitalOcean-Speed-Test-CLI
-version="v0.6.2"
 
 ##
 # Syntax
