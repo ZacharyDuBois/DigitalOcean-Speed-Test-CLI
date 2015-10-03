@@ -4,6 +4,12 @@
 version="v0.6.2"
 
 ##
+# Syntax
+# curl -s https://i.destroy.tokyo/dostcli | bash -s <testType> <disallowTracking> <disableColor>
+##
+version="v0.7.0"
+
+##
 # Variables
 ##
 
