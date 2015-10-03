@@ -130,8 +130,7 @@ downloadTest() {
     scheme="http://"
   fi
 
-  speedRaw=$( wget -O /dev/null --user-agent "'$userAgent'" $scheme$hostname/$downloadFile 2>&1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
-  speed="$(tput setaf 2)$speedRaw$(tput sgr0)"
+  speed=$( wget -O /dev/null --user-agent "'$userAgent'" $scheme$hostname/$downloadFile 2>&1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
   echo "$ok $name Speed: $speed."
 }
 
@@ -155,8 +154,7 @@ pingTest() {
   name=$1
   hostname=$2
   pingRaw=$(ping -qc 10 -i .5 $hostname)
-  avgPingRaw="$(echo "$pingRaw" | awk -F'/' '/^(rtt|round-trip)/ { print $5 }')"
-  avgPing="$(tput setaf 2)"$avgPingRaw"ms$(tput sgr0)"
+  avgPing="$(echo "$pingRaw" | awk -F'/' '/^(rtt|round-trip)/ { print $5 }')"
   echo "$ok $name Average Latency: $avgPing."
   pkLoss="$(echo "$pingRaw" | awk -F',' '/packet loss/ { print $3 }' | awk -F' ' '{ print $1 }')"
   if ! [[ "$pkLoss" =~ ^(0\.0\%|0\%) ]]
