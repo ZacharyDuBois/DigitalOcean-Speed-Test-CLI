@@ -1,5 +1,11 @@
 # Change Log
 
+## v0.7.0
+
+- Removes pointless output.
+- Add hidden option to disable color.
+- Add syntax in source.
+
 ## v0.6.2
 
 - Fix if at the end to determine if tracking is allowed or not.

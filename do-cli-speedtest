@@ -1,7 +1,12 @@
 #!/bin/bash
 # DigitalOcean Speed Test CLI
 # https://github.com/ZacharyDuBois/DigitalOcean-Speed-Test-CLI
-version="v0.6.2"
+
+##
+# Syntax
+# curl -s https://i.destroy.tokyo/dostcli | bash -s <testType> <disallowTracking> <disableColor>
+##
+version="v0.7.0"
 
 ##
 # Variables
@@ -12,19 +17,34 @@ cdnTest="d2qm7ckles1o3d.cloudfront.net"
 userAgent="DigitalOcean Speed Test CLI $version - https://github.com/ZacharyDuBois/DigitalOcean-Speed-Test-CLI"
 testType=$1
 disallowTracking=$2
-
+disableColor=$3
 
 ##
 # Message Types
 ##
 
-fail="[$(tput setaf 1) FAIL $(tput sgr0)]"
-ok="[$(tput setaf 2)  OK  $(tput sgr0)]"
-running="[$(tput setaf 3)  **  $(tput sgr0)]"
-notice="[$(tput setaf 3)NOTICE$(tput sgr0)]"
-warn="[$(tput setaf 3) WARN $(tput sgr0)]"
-info="[$(tput setaf 6) INFO $(tput sgr0)]"
-finish="[$(tput setaf 4) DONE $(tput sgr0)]"
+if [[ $disableColor == "" ]] || [[ $disableColor == false ]]
+then
+  fail="[$(tput setaf 1) FAIL $(tput sgr0)]"
+  ok="[$(tput setaf 2)  OK  $(tput sgr0)]"
+  running="[$(tput setaf 3)  **  $(tput sgr0)]"
+  notice="[$(tput setaf 3)NOTICE$(tput sgr0)]"
+  warn="[$(tput setaf 3) WARN $(tput sgr0)]"
+  info="[$(tput setaf 6) INFO $(tput sgr0)]"
+  finish="[$(tput setaf 4) DONE $(tput sgr0)]"
+elif [[ $disableColor == true ]]
+then
+  fail="[ FAIL ]"
+  ok="[  OK  ]"
+  running="[  **  ]"
+  notice="[NOTICE]"
+  warn="[ WARN ]"
+  info="[ INFO ]"
+  finish="[ DONE ]"
+else
+  echo "Unknown disableColor setting."
+  exit 1
+fi
 
 ##
 # Startup Checks
@@ -62,9 +82,6 @@ echo
 # Download Test
 ##
 
-echo "$info All test files are not saved so you don't have to worry about disk space :P"
-echo "$running Starting download speedtest..."
-
 # Determine the testType.
 if [[ $testType == "100mb" ]] || [[ $testType == "" ]]
 then
@@ -90,16 +107,17 @@ then
     echo "$fail You need curl to enable tracking."
     exit 1
   fi
-  echo "$notice You have selected not to opt out of tracking. Tracking only counts the number of tests and the test type (and the IP will be logged in the access log, etc)."
-  echo "$notice The tracking URL is not called until the very end of the test. If you would like to opt out now, you can simply cancel this script and re-run it with the disallowTracking variable set. See README.md on Github for more information."
+  echo "$notice By default, you are opted-in for just basic tracking (Which test type you picked)."
+  echo "$notice The tracking URI is not called until the end. To opt-out, kill this script and look for the propor command on the GitHub README.md."
 elif [[ $disallowTracking == true ]]
 then
-  echo "$info You have selected to opt out of tracking. The tracking URI should not be called at the end."
+  echo "$info You have selected to opt-out of tracking."
 else
   echo "$fail Unknown disallowTracking option."
   exit 1
 fi
 
+echo "$running Starting download test..."
 downloadTest() {
   name=$1
   hostname=$2
@@ -112,7 +130,6 @@ downloadTest() {
     scheme="http://"
   fi
 
-  echo "$running Running $name download speed test from $scheme$hostname/$downloadFile..."
   speedRaw=$( wget -O /dev/null --user-agent "'$userAgent'" $scheme$hostname/$downloadFile 2>&1 | awk '/\/dev\/null/ {speed=$3 $4} END {gsub(/\(|\)/,"",speed); print speed}' )
   speed="$(tput setaf 2)$speedRaw$(tput sgr0)"
   echo "$ok $name Speed: $speed."
@@ -123,33 +140,27 @@ do
     downloadTest "$(echo "$dataCenter" | awk -F'.' '{ print $1 }' | awk -F'-' '{ print $2 }' | tr '[:lower:]' '[:upper:]')" "$dataCenter" false
 done
 
-echo "$info Starting CDN test. Test runs twice to ensure file is in the edge location."
+echo "$info Starting CDN (AWS Cloudfront) test. Test runs twice to ensure file is in the edge location."
 downloadTest "CDN Test 1x" "$cdnTest" true
 downloadTest "CDN Test 2x" "$cdnTest" true
-
-echo "$ok Download Speedtest."
-
 
 ##
 # Latency Test
 ##
 
 echo "$running Starting latency test..."
-echo "$info This test each datacenter 10 times."
-echo "$info If there is any packet loss, it will be printed."
+echo "$info 10 Packets are sent. Packetloss will be shown if any."
 
 pingTest() {
   name=$1
   hostname=$2
-  echo "$running Running $name latency test on $hostname..."
   pingRaw=$(ping -qc 10 -i .5 $hostname)
   avgPingRaw="$(echo "$pingRaw" | awk -F'/' '/^(rtt|round-trip)/ { print $5 }')"
   avgPing="$(tput setaf 2)"$avgPingRaw"ms$(tput sgr0)"
   echo "$ok $name Average Latency: $avgPing."
-  pkLossRaw="$(echo "$pingRaw" | awk -F',' '/packet loss/ { print $3 }' | awk -F' ' '{ print $1 }')"
-  if ! [[ "$pkLossRaw" =~ ^(0\.0\%|0\%) ]]
+  pkLoss="$(echo "$pingRaw" | awk -F',' '/packet loss/ { print $3 }' | awk -F' ' '{ print $1 }')"
+  if ! [[ "$pkLoss" =~ ^(0\.0\%|0\%) ]]
   then
-    pkLoss=$(tput setaf 2)$pkLossRaw$(tput sgr0)
     echo "$warn $name Packet Loss: $pkLoss."
   fi
 }
@@ -158,8 +169,6 @@ for dataCenter in "${dataCenters[@]}"
 do
     pingTest "$(echo "$dataCenter" | awk -F'.' '{ print $1 }' | awk -F'-' '{ print $2 }' | tr '[:lower:]' '[:upper:]')" "$dataCenter"
 done
-
-echo "$ok Latency test."
 
 if [[ $disallowTracking == false ]] || [[ $disallowTracking == "" ]]
 then
