@@ -12,19 +12,34 @@ cdnTest="d2qm7ckles1o3d.cloudfront.net"
 userAgent="DigitalOcean Speed Test CLI $version - https://github.com/ZacharyDuBois/DigitalOcean-Speed-Test-CLI"
 testType=$1
 disallowTracking=$2
-
+disableColor=$3
 
 ##
 # Message Types
 ##
 
-fail="[$(tput setaf 1) FAIL $(tput sgr0)]"
-ok="[$(tput setaf 2)  OK  $(tput sgr0)]"
-running="[$(tput setaf 3)  **  $(tput sgr0)]"
-notice="[$(tput setaf 3)NOTICE$(tput sgr0)]"
-warn="[$(tput setaf 3) WARN $(tput sgr0)]"
-info="[$(tput setaf 6) INFO $(tput sgr0)]"
-finish="[$(tput setaf 4) DONE $(tput sgr0)]"
+if [[ $disableColor == "" ]] || [[ $disableColor == false ]]
+then
+  fail="[$(tput setaf 1) FAIL $(tput sgr0)]"
+  ok="[$(tput setaf 2)  OK  $(tput sgr0)]"
+  running="[$(tput setaf 3)  **  $(tput sgr0)]"
+  notice="[$(tput setaf 3)NOTICE$(tput sgr0)]"
+  warn="[$(tput setaf 3) WARN $(tput sgr0)]"
+  info="[$(tput setaf 6) INFO $(tput sgr0)]"
+  finish="[$(tput setaf 4) DONE $(tput sgr0)]"
+elif [[ $disableColor == true ]]
+then
+  fail="[ FAIL ]"
+  ok="[  OK  ]"
+  running="[  **  ]"
+  notice="[NOTICE]"
+  warn="[ WARN ]"
+  info="[ INFO ]"
+  finish="[ DONE ]"
+else
+  echo "Unknown disableColor setting."
+  exit 1
+fi
 
 ##
 # Startup Checks
