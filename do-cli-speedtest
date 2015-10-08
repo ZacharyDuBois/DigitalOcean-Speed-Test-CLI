@@ -127,6 +127,14 @@ then
   fi
   echo "$notice By default, you are opted-in for just basic tracking (Which test type you picked)."
   echo "$notice The tracking URI is not called until the end. To opt-out, kill this script and look for the propor command on the GitHub README.md."
+  read -p "Really enable tracking? " -n 1 -r; echo
+  if ! [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    echo "Good choice."
+    exit 0
+  else
+    echo "Whatever, suit yourself..."
+  fi
 elif [ -n "$disallowTracking" ]
 then
   echo "$info You have selected to opt-out of tracking."
