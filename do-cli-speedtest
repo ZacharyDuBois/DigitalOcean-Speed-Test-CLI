@@ -1,29 +1,45 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # DigitalOcean Speed Test CLI
 # https://github.com/ZacharyDuBois/DigitalOcean-Speed-Test-CLI
 
 ##
 # Syntax
-# curl -s https://i.destroy.tokyo/dostcli | bash -s <testType> <disallowTracking> <disableColor>
+# curl -s https://i.destroy.tokyo/dostcli | bash [-s TESTTYPE] [--without-tracking] [--without-color]
 ##
-version="v0.7.0"
 
 ##
 # Variables
 ##
 
+version="v0.7.0"
 dataCenters=(speedtest-{ams{1..3},fra1,lon1,nyc{1..3},sfo1,sgp1,tor1}.digitalocean.com)
 cdnTest="d2qm7ckles1o3d.cloudfront.net"
 userAgent="DigitalOcean Speed Test CLI $version - https://github.com/ZacharyDuBois/DigitalOcean-Speed-Test-CLI"
-testType=$1
-disallowTracking=$2
-disableColor=$3
+
+##
+# Option parsing
+##
+
+eval set -- "$(getopt -o s: --longoptions without-tracking,without-color -n "DigitalOcean-Speed-Test-CLI" -- "$@")"
+
+while true; do
+  case "$1" in
+    -s)
+      testType="$2"; shift 2;;
+    --without-tracking)
+      disallowTracking=1; shift 1;;
+    --without-color)
+      disableColor=1; shift 1;;
+    --) shift; break;;
+  esac
+done
+
 
 ##
 # Message Types
 ##
 
-if [[ $disableColor == "" ]] || [[ $disableColor == false ]]
+if [ -z "$disableColor" ]
 then
   fail="[$(tput setaf 1) FAIL $(tput sgr0)]"
   ok="[$(tput setaf 2)  OK  $(tput sgr0)]"
@@ -32,7 +48,7 @@ then
   warn="[$(tput setaf 3) WARN $(tput sgr0)]"
   info="[$(tput setaf 6) INFO $(tput sgr0)]"
   finish="[$(tput setaf 4) DONE $(tput sgr0)]"
-elif [[ $disableColor == true ]]
+elif [ -n "$disableColor" ]
 then
   fail="[ FAIL ]"
   ok="[  OK  ]"
@@ -58,9 +74,7 @@ then
 fi
 
 # Check for wget
-which wget > /dev/null
-checkForWget=$?
-if [[ "$checkForWget" != "0" ]]
+if which wget >/dev/null
 then
   echo "$fail You need wget to run this script."
   exit 1
@@ -83,7 +97,7 @@ echo
 ##
 
 # Determine the testType.
-if [[ $testType == "100mb" ]] || [[ $testType == "" ]]
+if [[ $testType == "100mb" ]] || [ -z "$testType" ]
 then
   downloadFile="100mb.test"
   testType="100mb"
@@ -98,18 +112,16 @@ else
   exit 1
 fi
 
-if [[ $disallowTracking == false ]] || [[ $disallowTracking == "" ]]
+if [ -z "$disallowTracking" ]
 then
-  which curl > /dev/null
-  checkForCurl=$?
-  if [[ "$checkForCurl" != "0" ]]
+  if which curl >/dev/null
     then
     echo "$fail You need curl to enable tracking."
     exit 1
   fi
   echo "$notice By default, you are opted-in for just basic tracking (Which test type you picked)."
   echo "$notice The tracking URI is not called until the end. To opt-out, kill this script and look for the propor command on the GitHub README.md."
-elif [[ $disallowTracking == true ]]
+elif [ -n "$disallowTracking" ]
 then
   echo "$info You have selected to opt-out of tracking."
 else
@@ -168,7 +180,7 @@ do
     pingTest "$(echo "$dataCenter" | awk -F'.' '{ print $1 }' | awk -F'-' '{ print $2 }' | tr '[:lower:]' '[:upper:]')" "$dataCenter"
 done
 
-if [[ $disallowTracking == false ]] || [[ $disallowTracking == "" ]]
+if [ -z "$disallowTracking" ]
 then
   echo "$running Calling tracking URL."
   curl -s "https://we.destroy.tokyo/DOSTCLI-$testType" > /dev/null
