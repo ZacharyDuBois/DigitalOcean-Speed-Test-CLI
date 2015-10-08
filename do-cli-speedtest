@@ -74,7 +74,7 @@ then
 fi
 
 # Check for wget
-if which wget >/dev/null
+if ! which wget >/dev/null
 then
   echo "$fail You need wget to run this script."
   exit 1
@@ -114,7 +114,7 @@ fi
 
 if [ -z "$disallowTracking" ]
 then
-  if which curl >/dev/null
+  if ! which curl >/dev/null
     then
     echo "$fail You need curl to enable tracking."
     exit 1
