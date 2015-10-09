@@ -1,5 +1,9 @@
 # Change Log
 
+## 2015-10-09
+
+- Project was abandon.
+
 ## v0.7.0
 
 - Removes pointless output.
