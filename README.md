@@ -1,5 +1,9 @@
 # DigitalOcean Speed Test CLI
 
+## Abandon as of 2015-10-09
+
+I have abandon work on this project on 2015-10-09 due to hate related to simple opt-out tracking and related to piping `curl` directly into `bash`. This work remains licensed under MIT.
+
 *v0.7.0*
 
 ## Features

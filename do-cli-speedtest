@@ -2,6 +2,9 @@
 # DigitalOcean Speed Test CLI
 # https://github.com/ZacharyDuBois/DigitalOcean-Speed-Test-CLI
 
+echo "This project is abandon and should not be used due to undisired results. If you know what you're doing you know how to get rid of this message."
+exit 1
+
 ##
 # Syntax
 # curl -s https://i.destroy.tokyo/dostcli | bash -s <testType> <disallowTracking> <disableColor>
